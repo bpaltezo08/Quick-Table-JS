@@ -1,0 +1,74 @@
+<html>
+<head>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' type='text/css' />
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+      <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>   
+</head>
+<body> 
+    <div id="tableContainer"></div>
+</body>
+<script>
+
+    function myTable(){
+
+        const $ = this;
+
+        this.toData = function(data){
+            return ((data != null || data != undefined || data != "")? data : []);
+        }
+
+        this.create = function(data){
+            return "<table class='table table-bordered table-striped'>" + $.header($.toData(data.head)) + $.body($.toData(data.rows)) + "</table>";
+        }
+
+        this.header = function(data){
+            let res = "<thead><tr>";
+            for(var x=0;x<data.length;x++){
+                res += "<th>" + data[x] + "</th>";
+            }
+            return res + "</tr></thead>";
+        }
+
+        this.footer = function(data){
+            let res = "<tfoot><tr>";
+            for(var x=0;x<data.length;x++){
+                res += "<td>" + data[x] + "</td>";
+            }
+            return res + "</tr></tfoot>";
+        }
+
+        this.body = function(data){
+            let res = "<tbody>";
+            for(var x=0;x<data.length;x++){
+                res += "<tr>";
+                for(var i=0;i<data[x].length;i++){
+                    res += "<td>" + data[x][i] + "</td>";
+                }
+                res += "</tr>";
+            }
+            return res + "</body>";
+        }
+
+        this.style = function(){
+
+        }
+
+    }
+
+    let tbl = new myTable();
+    let data = {
+        bootstrap: true,
+        style: "",
+        head: ["Name", "Age", "Address", "Gender"],
+        rows: [
+            ["Bryan Altezo", 21, "Pilar Bolinao", "Male"]
+        ]
+    };
+
+    tableContainer.innerHTML = tbl.create(data);
+
+</script>
+</html>
